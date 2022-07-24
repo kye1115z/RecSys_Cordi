@@ -270,3 +270,7 @@ cython_debug/
 Bitamin/HaJun/musinsa_data.csv
 Bitamin/HaJun/musinsa_list_row.csv
 IMG_70E2846C0FEC-1.jpeg
+crawling/item_no.csv
+crawling/musinsa_9466.csv
+crawling/.DS_Store
+crawling/error_list.txt
