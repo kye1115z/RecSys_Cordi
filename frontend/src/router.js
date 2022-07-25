@@ -5,6 +5,7 @@ import Login from './Login';
 import Search from './Search';
 import Custom from './Custom';
 import OrderConfirmed from './OrderConfirmed';
+import Favorites from './Favorites';
 
 function Router() {
     return (
@@ -16,7 +17,7 @@ function Router() {
                 <Route path='/search' element={<Search />} />
                 <Route path='/custom' element={<Custom />} />
                 <Route path='/orderconfirmed' element={<OrderConfirmed />} />
-                
+                <Route path='/favorites' element={<Favorites />} />
             </Routes>
         </BrowserRouter>
     );

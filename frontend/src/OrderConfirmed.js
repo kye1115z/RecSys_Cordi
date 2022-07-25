@@ -50,7 +50,7 @@ table {
 `;
 
 const Container = styled.div`
-    width: 100%;
+    max-width: 480px;
     padding-top: 10px;
     padding-left: 36px;
     padding-right: 36px;
