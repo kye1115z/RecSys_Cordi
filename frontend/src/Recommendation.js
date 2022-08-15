@@ -132,7 +132,7 @@ function Recommendation() {
                 `http://localhost:8000/results/`
             )
         ).json();
-        setProduct(json.data.product)
+        setProduct(json)
         setLoading(false);
     };
     useEffect(() => {
@@ -144,13 +144,13 @@ function Recommendation() {
         <>
             <GlobalStyle />
             {loading ? <h1> Loading.... </h1> : product&&product.map((item =>
-            <Container key={item.id}>
+            <Container>
                 <Title>Recommendation</Title>
                 <FilterBox>
                     <Filterbtn onClick={onClick}>남</Filterbtn>
                     <Filterbtn onClick={onClick}>여</Filterbtn>
-                    <ImgBox>
-                        <Img>{item.img}</Img>
+                    <ImgBox key={item.id}>
+                        <Img src={item.img} />
                     </ImgBox>
                 </FilterBox>
             </Container>
