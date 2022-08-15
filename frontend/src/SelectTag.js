@@ -183,6 +183,8 @@ function SelectTag() {
     console.log(fashion2);
     console.log(topn);
 
+    const handleChange = ({target: {value}}) => setTopn(value);
+
     const onSubmit = () =>  {
         fetch("http://localhost:8000/", {
             method: "POST",
@@ -240,7 +242,7 @@ function SelectTag() {
                     )}
                 </TagBox>
                 <InputBox>
-                    <Input onChange={()=>setTopn()} placeholder="Top N"/>
+                    <Input value={topn} onChange={handleChange} placeholder="Top N"/>
                 </InputBox>
 
                 <SubmitBox>
