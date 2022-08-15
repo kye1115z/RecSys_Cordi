@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import { Helmet } from 'react-helmet';
+import { useState} from 'react';
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -137,7 +138,7 @@ const Input = styled.input`
     font-size: 10px;
 `;
 
-const SubmitBox = styled.div`
+const SubmitBox = styled.form`
     width: 100%;
     height: 40px;
     display: flex;
@@ -175,6 +176,24 @@ const weatherlist = [{id:1, weather: "봄"}, {id:2, weather: "여름"}, {id:3, w
 
 
 function SelectTag() {
+    const [fashion2, setFashion2] = useState([]);
+    const [coordi2, setCoordi2] = useState([]);
+    const [weather2, setWeather2] = useState([]);
+    const [topn, setTopn] = useState(0);
+    console.log(fashion2);
+    console.log(topn);
+
+    const onSubmit = () =>  {
+        fetch("http://localhost:8000/", {
+            method: "POST",
+            body: {
+                "main_category": fashion2.join(","),
+                "coordi": coordi2.join(","),
+                "input_text": weather2.join(" "),
+                "top_n": topn,
+            },
+        });
+    };
     return (
         <>
             <GlobalStyle />
@@ -186,7 +205,11 @@ function SelectTag() {
                 </Box>
                 <TagBox>
                 {categorylist.map((item, index) =>
-                    <Tag key={item.id}>{item.fashion}</Tag>
+                    <Tag onClick={()=>
+                        {setFashion2(fashion2.concat(item.fashion))}} 
+                        key={item.id}>
+                            {item.fashion}
+                    </Tag>
                     )}
                 </TagBox>
                 <Box>
@@ -195,7 +218,11 @@ function SelectTag() {
                 </Box>
                 <TagBox>
                 {coordilist.map((item, index) =>
-                    <Tag key={item.id}>{item.coordi}</Tag>
+                    <Tag onClick={()=>
+                        {setCoordi2(coordi2.concat(item.coordi))}}
+                        key={item.id}>
+                            {item.coordi}
+                    </Tag>
                     )}
                 </TagBox>
                 
@@ -205,15 +232,19 @@ function SelectTag() {
                 </Box>
                 <TagBox>
                 {weatherlist.map((item, index) =>
-                    <Tag key={item.id}>{item.weather}</Tag>
+                    <Tag onClick={()=>
+                        {setWeather2(weather2.concat(item.weather))}}
+                        key={item.id}>
+                            {item.weather}
+                    </Tag>
                     )}
                 </TagBox>
                 <InputBox>
-                    <Input placeholder="Top N" />
+                    <Input onChange={()=>setTopn()} placeholder="Top N"/>
                 </InputBox>
 
                 <SubmitBox>
-                    <Submit>완료</Submit>
+                    <Submit onSubmit={onSubmit}>완료</Submit>
                 </SubmitBox>
             </Container>
         </>
