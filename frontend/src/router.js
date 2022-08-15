@@ -4,6 +4,10 @@ import Registerrr from './Registerrr';
 import Login from './Login';
 import Search from './Search';
 import Custom from './Custom';
+import OrderConfirmed from './OrderConfirmed';
+import Favorites from './Favorites';
+import SelectTag from './SelectTag';
+import Recommendation from './Recommendation';
 
 function Router() {
     return (
@@ -14,7 +18,10 @@ function Router() {
                 <Route path='/login' element={<Login />} />
                 <Route path='/search' element={<Search />} />
                 <Route path='/custom' element={<Custom />} />
-                
+                <Route path='/orderconfirmed' element={<OrderConfirmed />} />
+                <Route path='/favorites' element={<Favorites />} />
+                <Route path='/selecttag' element={<SelectTag />} />
+                <Route path='/recommendation' element={<Recommendation />} />
             </Routes>
         </BrowserRouter>
     );
