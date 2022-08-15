@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
+// import FavolistDeleteModal from './FavolistDeleteModal';
 import NavFavo from './NavFavo';
-import { Link } from "react-router-dom";
+// import { useState } from 'react';
+// import { Link } from "react-router-dom";
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -111,22 +113,24 @@ const Text = styled.div`
     font-weight: bold;
 `;
 
-const RemoveLink = styled(Link)`
+const Remove = styled.button`
   width: 45px;
   height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: none;
+  background-color: white;
 
   font-size: 11px;
-  font-weight: 900;
+  font-weight: bold;
   color: red;
   text-decoration: none;
 `;
 
 
 
-function Favorites() {
+function Favorites()    {
     return (
         <>
             <GlobalStyle />
@@ -144,7 +148,7 @@ function Favorites() {
                                     {item.price}{<br></br>}
                                 </Text>
                             </Textbox>
-                            <RemoveLink to ="/register">Remove</RemoveLink>
+                            <Remove>Remove</Remove>
                          </Box>
 
                         )
