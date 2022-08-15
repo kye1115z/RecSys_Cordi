@@ -191,19 +191,27 @@ function SelectTag() {
 
     const handleChange = ({target: {value}}) => setTopn(value);
 
-    const onSubmit = () =>  {
-        fetch("http://localhost:8000/", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                "main_category": fashion2.join(","),
-                "coordi": coordi2.join(","),
-                "input_text": weather2.join(" "),
-                "top_n": topn,
+    const [data, setData] = useState();
+    const onSubmit = () =>  {        
+        const getData = async() => {
+            const json = await (
+                await fetch("http://localhost:8000/", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        "main_category": fashion2.join(","),
+                        "coordi": coordi2.join(","),
+                        "input_text": weather2.join(" "),
+                        "top_n": topn,
+                    })
             })
-        });
+            ).json();
+            setData(json.name);
+            console.log("데이터", data);
+        }
+        getData();
     };
     return (
         <>
