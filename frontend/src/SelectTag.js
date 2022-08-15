@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
-import { Helmet } from 'react-helmet';
+// import { Helmet } from 'react-helmet';
 import { useState} from 'react';
 
 const GlobalStyle = createGlobalStyle`
@@ -119,7 +119,7 @@ const Tag = styled.button`
     font-size: 10px;
 `;
 
-const InputBox = styled.div`
+const InputBox = styled.form`
     width: 100%;
     height: 50px;
     display: flex;
@@ -136,6 +136,10 @@ const Input = styled.input`
     
     color: gray;
     font-size: 10px;
+`;
+
+const FormBox = styled.div`
+    height: 100px;
 `;
 
 const SubmitBox = styled.form`
@@ -179,8 +183,10 @@ function SelectTag() {
     const [fashion2, setFashion2] = useState([]);
     const [coordi2, setCoordi2] = useState([]);
     const [weather2, setWeather2] = useState([]);
-    const [topn, setTopn] = useState(0);
+    const [topn, setTopn] = useState();
     console.log(fashion2);
+    console.log(coordi2);
+    console.log(weather2);
     console.log(topn);
 
     const handleChange = ({target: {value}}) => setTopn(value);
@@ -188,12 +194,15 @@ function SelectTag() {
     const onSubmit = () =>  {
         fetch("http://localhost:8000/", {
             method: "POST",
-            body: {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
                 "main_category": fashion2.join(","),
                 "coordi": coordi2.join(","),
                 "input_text": weather2.join(" "),
                 "top_n": topn,
-            },
+            })
         });
     };
     return (
@@ -241,13 +250,15 @@ function SelectTag() {
                     </Tag>
                     )}
                 </TagBox>
-                <InputBox>
-                    <Input value={topn} onChange={handleChange} placeholder="Top N"/>
-                </InputBox>
+                <FormBox onSubmit={onSubmit}>
+                    <InputBox>
+                        <Input value={topn || ''} onChange={handleChange} placeholder="Top N"/>
+                    </InputBox>
 
-                <SubmitBox>
-                    <Submit onSubmit={onSubmit}>완료</Submit>
-                </SubmitBox>
+                    <SubmitBox>
+                        <Submit>완료</Submit>
+                    </SubmitBox>
+                </FormBox>
             </Container>
         </>
     );
