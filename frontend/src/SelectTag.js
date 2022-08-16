@@ -168,9 +168,9 @@ const categorylist = [{id:1, fashion: "상의"}, {id:2, fashion: "원피스"}, {
                       {id:11, fashion: "스포츠모자"}, {id: 12, fashion: "스포츠신발"}
 ];
 
-const coordilist = [{id:1, coordi: "캐주얼"}, {id:2, coordi: "스트릿"}, {id:3, coordi: "유니크"}, {id:4, coordi: "포멀"}, {id:5, coordi: "댄디"},
-                    {id:6, coordi: "레트로"}, {id:7, coordi: "로맨틱"}, {id:8, coordi: "아메카지"}, {id:9, coordi: "걸리시"}, {id:10, coordi: "스포츠"},
-                    {id:11, coordi: "골프"}, {id:12, coordi: "홈웨어"}, {id: 13, coordi: "없음"}
+const coordilist = [{id:1, coordi: "캐주얼", value: "캐주얼"}, {id:2, coordi: "스트릿", value: "스트릿"}, {id:3, coordi: "유니크", value: "유니크"}, {id:4, coordi: "포멀", value: "포멀"}, {id:5, coordi: "댄디", value: "댄디"},
+                    {id:6, coordi: "레트로", value: "레트로"}, {id:7, coordi: "로맨틱", value: "로맨틱"}, {id:8, coordi: "아메카지", value: "아메카지"}, {id:9, coordi: "걸리시", value: "걸리시"}, {id:10, coordi: "스포츠", value: "스포츠"},
+                    {id:11, coordi: "골프", value: "골프"}, {id:12, coordi: "홈웨어", value: "홈웨어"}, {id: 13, coordi: "선택안함", value: ""}
 ];
 
 const detailList = [{id:1, detail: "봄"}, {id:2, detail: "여름"}, {id:3, detail: "가을"}, {id:4, detail: "겨울"}, {id:5, detail: "바람"},
@@ -200,8 +200,8 @@ function SelectTag() {
         const getData = async () => {
             await axios
                 .post('http://localhost:8000/predict/', {
-                    main_category: fashion2,
-                    coordi: coordi2,
+                    main_category: fashion2.toString(),
+                    coordi: coordi2.toString(),
                     input_text: detail2.join(' '),
                     top_n: topn,
                 })
@@ -261,7 +261,7 @@ function SelectTag() {
                 <TagBox>
                 {coordilist.map((item, index) =>
                     <Tag onClick={()=>
-                        {setCoordi2(coordi2.concat(item.coordi))}}
+                        {setCoordi2(coordi2.concat(item.value))}}
                         key={item.id}>
                             {item.coordi}
                     </Tag>
