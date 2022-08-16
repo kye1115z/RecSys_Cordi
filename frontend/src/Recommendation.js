@@ -129,14 +129,13 @@ function Recommendation() {
     const [loading, setLoading] = useState(true);
     const [product, setProduct] = useState([]);
     const getProduct = async() => {
-        const json = await (
+        const json = await (    
             await fetch(
                 "http://localhost:8000/results/"
             )
         ).json();
         setProduct(json)
         setLoading(false);
-        console.log(json);
     };
     useEffect(() => {
        getProduct()
@@ -153,7 +152,7 @@ function Recommendation() {
                     <Filterbtn onClick={onClick}>남</Filterbtn>
                     <Filterbtn onClick={onClick}>여</Filterbtn>
                 </FilterBox>
-                <ImgBox key={item.id}>
+                <ImgBox key={item.name}>
                     <Img src={item.img} />
                 </ImgBox>
             </Container>
