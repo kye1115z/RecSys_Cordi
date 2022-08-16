@@ -131,11 +131,12 @@ function Recommendation() {
     const getProduct = async() => {
         const json = await (
             await fetch(
-                `http://localhost:8000/results/`
+                "http://localhost:8000/results/"
             )
         ).json();
         setProduct(json)
         setLoading(false);
+        console.log(json);
     };
     useEffect(() => {
        getProduct()
@@ -156,8 +157,8 @@ function Recommendation() {
                     <Img src={item.img} />
                 </ImgBox>
             </Container>
-            )
-            )}
+            ))
+            }
 
         </>
     );

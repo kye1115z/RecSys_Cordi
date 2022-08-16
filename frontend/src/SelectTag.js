@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 // import { Helmet } from 'react-helmet';
 import { useState} from 'react';
+import axios from 'axios';
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -193,29 +194,28 @@ function SelectTag() {
 
     const handleChange = ({target: {value}}) => setTopn(value);
 
-    const [data, setData] = useState();
+    // const [data, setData] = useState();
     const onSubmit = (e) =>  {   
-        e.preventDefault();    
-        const getData = () => {
-            fetch("http://localhost:8000/predict/", {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: {
-                        "main_category": fashion2,
-                        "coordi": coordi2,
-                        "input_text": detail2.join(" "),
-                        "top_n": topn,
-                    }
-            }).then(response=>(response.json())).then(json=>setData(json.name)).catch(error=>console.log(error))
-            // if(json !== undefined){
-            //      window.location.href="http://localhost:3000/recommendation"}
-            //      else {
-            //         return null;
-            //      }
+        e.preventDefault();
+        const getData = async () => {
+            await axios
+                .post('http://localhost:8000/predict/', {
+                    main_category: fashion2,
+                    coordi: coordi2,
+                    input_text: detail2.join(' '),
+                    top_n: topn,
+                })
+                .then((response) => console.log(response.data))
+                .catch((err) => console.log(err));
+
+            // if( !== undefined){
+                 window.location.href="http://localhost:3000/recommendation"
+                // }
+            // else {
+            // return null;
+            // }
             // console.log("데이터", data);
-        }
+        };
         getData();
     };
 
