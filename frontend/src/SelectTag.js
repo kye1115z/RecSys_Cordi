@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 // import { Helmet } from 'react-helmet';
 import { useState} from 'react';
+import axios from 'axios';
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -161,6 +162,7 @@ const Submit = styled.button`
     color: white;
 `;
 
+
 const categorylist = [{id:1, fashion: "상의"}, {id:2, fashion: "원피스"}, {id:3, fashion:"바지"}, {id:4, fashion:"스커트"}, {id:5, fashion:"아우터"},
                       {id:6, fashion: "가방"}, {id: 7, fashion: "모자"}, {id:8, fashion: "신발"}, {id:9, fashion: "스니커즈"}, {id:10, fashion: "스포츠가방"},
                       {id:11, fashion: "스포츠모자"}, {id: 12, fashion: "스포츠신발"}
@@ -168,10 +170,11 @@ const categorylist = [{id:1, fashion: "상의"}, {id:2, fashion: "원피스"}, {
 
 const coordilist = [{id:1, coordi: "캐주얼"}, {id:2, coordi: "스트릿"}, {id:3, coordi: "유니크"}, {id:4, coordi: "포멀"}, {id:5, coordi: "댄디"},
                     {id:6, coordi: "레트로"}, {id:7, coordi: "로맨틱"}, {id:8, coordi: "아메카지"}, {id:9, coordi: "걸리시"}, {id:10, coordi: "스포츠"},
-                    {id:11, coordi: "골프"}, {id:12, coordi: "홈웨어"}
+                    {id:11, coordi: "골프"}, {id:12, coordi: "홈웨어"}, {id: 13, coordi: "없음"}
 ];
 
-const weatherlist = [{id:1, weather: "봄"}, {id:2, weather: "여름"}, {id:3, weather: "가을"}, {id:4, weather: "겨울"}, {id:5, weather: "바람"}
+const detailList = [{id:1, detail: "봄"}, {id:2, detail: "여름"}, {id:3, detail: "가을"}, {id:4, detail: "겨울"}, {id:5, detail: "바람"},
+                    {id:6, detail: "사이즈"}, {id: 7, detail: "가성비"}
 ];
 
 
@@ -182,37 +185,57 @@ const weatherlist = [{id:1, weather: "봄"}, {id:2, weather: "여름"}, {id:3, w
 function SelectTag() {
     const [fashion2, setFashion2] = useState([]);
     const [coordi2, setCoordi2] = useState([]);
-    const [weather2, setWeather2] = useState([]);
+    const [detail2, setDetail2] = useState([]);
     const [topn, setTopn] = useState();
     console.log(fashion2);
     console.log(coordi2);
-    console.log(weather2);
+    console.log(detail2);
     console.log(topn);
 
     const handleChange = ({target: {value}}) => setTopn(value);
 
-    const [data, setData] = useState();
-    const onSubmit = () =>  {        
-        const getData = async() => {
-            const json = await (
-                await fetch("http://localhost:8000/", {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        "main_category": fashion2.join(","),
-                        "coordi": coordi2.join(","),
-                        "input_text": weather2.join(" "),
-                        "top_n": topn,
-                    })
-            })
-            ).json();
-            setData(json.name);
-            console.log("데이터", data);
-        }
+    // const [data, setData] = useState();
+    const onSubmit = (e) =>  {   
+        e.preventDefault();
+        const getData = async () => {
+            await axios
+                .post('http://localhost:8000/predict/', {
+                    main_category: fashion2,
+                    coordi: coordi2,
+                    input_text: detail2.join(' '),
+                    top_n: topn,
+                })
+                .then((response) => console.log(response.data))
+                .catch((err) => console.log(err));
+
+            // if( !== undefined){
+                 window.location.href="http://localhost:3000/recommendation"
+                // }
+            // else {
+            // return null;
+            // }
+            // console.log("데이터", data);
+        };
         getData();
     };
+
+    // 버튼 클릭시 다른 recommendation으로 이동
+    // const Click = () => {
+    //     document.location.href('/recommendation')
+    // };
+
+    // //TAG 클릭 배열 삭제, 추가
+    // const [tagActive, setTagActive] = useState(false);
+
+    // const toggleActive = () => {
+    //     setTagActive((prev) => !prev);
+    // }
+
+    // const onRemove = (item) => {
+    //     setFashion2(fashion2.filter(categorylist => categorylist.id !== item))
+    // } 
+
+
     return (
         <>
             <GlobalStyle />
@@ -225,7 +248,7 @@ function SelectTag() {
                 <TagBox>
                 {categorylist.map((item, index) =>
                     <Tag onClick={()=>
-                        {setFashion2(fashion2.concat(item.fashion))}} 
+                        {setFashion2(fashion2.concat(item.fashion))}}
                         key={item.id}>
                             {item.fashion}
                     </Tag>
@@ -247,14 +270,14 @@ function SelectTag() {
                 
                 <Box>
                 <Img> </Img>
-                <Subheading>날씨</Subheading>
+                <Subheading>More</Subheading>
                 </Box>
                 <TagBox>
-                {weatherlist.map((item, index) =>
+                {detailList.map((item, index) =>
                     <Tag onClick={()=>
-                        {setWeather2(weather2.concat(item.weather))}}
+                        {setDetail2(detail2.concat(item.detail))}}
                         key={item.id}>
-                            {item.weather}
+                            {item.detail}
                     </Tag>
                     )}
                 </TagBox>
@@ -271,5 +294,4 @@ function SelectTag() {
         </>
     );
 }
-
 export default SelectTag;

@@ -75,6 +75,7 @@ const FilterBox = styled.div`
     display: flex;
     align-items: center;
     justify-content: right;
+    margin-bottom: 10px;
 `;
 
 const Filterbtn = styled.button`
@@ -96,6 +97,7 @@ const ImgBox = styled.div`
     justify-content: space-between;
     display: flex;
     align-items: center;
+    float: left;
 `;
 
 const Img = styled.img`
@@ -129,11 +131,12 @@ function Recommendation() {
     const getProduct = async() => {
         const json = await (
             await fetch(
-                `http://localhost:8000/results/`
+                "http://localhost:8000/results/"
             )
         ).json();
         setProduct(json)
         setLoading(false);
+        console.log(json);
     };
     useEffect(() => {
        getProduct()
@@ -149,13 +152,13 @@ function Recommendation() {
                 <FilterBox>
                     <Filterbtn onClick={onClick}>남</Filterbtn>
                     <Filterbtn onClick={onClick}>여</Filterbtn>
-                    <ImgBox key={item.id}>
-                        <Img src={item.img} />
-                    </ImgBox>
                 </FilterBox>
+                <ImgBox key={item.id}>
+                    <Img src={item.img} />
+                </ImgBox>
             </Container>
-            )
-            )}
+            ))
+            }
 
         </>
     );
