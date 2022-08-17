@@ -75,7 +75,7 @@ const FilterBox = styled.div`
     display: flex;
     align-items: center;
     justify-content: right;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 `;
 
 const Filterbtn = styled.button`
@@ -94,18 +94,21 @@ const Filterbtn = styled.button`
 `;
 
 const ImgBox = styled.div`
+    width: 94px;
+    height: 100px;
     justify-content: space-between;
-    display: flex;
-    align-items: center;
+    padding: 3px;
     float: left;
 `;
 
 const Img = styled.img`
-    width: 107px;
-    height: 107px;
+    width: 94px;
+    height: 100px;
     border: none;
     position: absolute;
     margin-bottom: 10px;
+    box-shadow:0 2px 3px rgba(0, 0, 0, 0.25);
+    position: absolute;
 `;
 
 // const Loading = styled.img`
@@ -145,20 +148,21 @@ function Recommendation() {
     return (
         <>
             <GlobalStyle />
-            {loading ? <h1> Loading.... </h1> : product&&product.map((item =>
+            {loading ? (<h1> Loading.... </h1>
+            ) : (
             <Container>
                 <Title>Recommendation</Title>
                 <FilterBox>
                     <Filterbtn onClick={onClick}>남</Filterbtn>
                     <Filterbtn onClick={onClick}>여</Filterbtn>
                 </FilterBox>
-                <ImgBox key={item.name}>
+                {product&&product.map((item, index) =>
+                <ImgBox key={index}>
                     <Img src={item.img} />
                 </ImgBox>
+                    )}
             </Container>
-            ))
-            }
-
+            )}
         </>
     );
 }
