@@ -2,12 +2,14 @@ import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import { useEffect, useState } from 'react';
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import DetailView from './DetailView';
+import NavRecommendation from './NavRecommendation';
 // import { useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom';    
-import Dropdown from './Dropdown';
+// import { Link } from 'react-router-dom';    
+// import Dropdown from './Dropdown';
 // import PropTypes from 'prop-types';
-import qs from "query-string";
-import { useLocation } from 'react-router-dom';
+// import qs from "query-string";
+// import { useLocation } from 'react-router-dom';
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -125,13 +127,18 @@ const Img = styled.img`
     object-fit: cover;
 `;
 
-const Name = styled(Link)`
-    width: 90px;
-    height: 20px;
+const Name = styled.button`
+    width: 100px;
+    height: 50px;
     font-size: 10px;
     font-weight: bold;
-    color: inherit;
-    text-decoration: none;
+    border: none;
+    background-color: white;
+    text-align: left;
+    display: flex;
+    justify-content: left;
+    align-items: top;
+    padding-top: 6px;
 `;
 
 const Loading = styled.div`
@@ -196,7 +203,10 @@ const DropItem = styled.div`
 
 
 
-function Recommendation() {
+
+
+
+function Recommendation({onPush}) {
 
     // if(selected === "없음") {
     //     getProduct()
@@ -237,6 +247,9 @@ function Recommendation() {
         getProduct()
     })
 
+    //모달
+    const [isOpen, setIsOpen] = useState(false);
+
 
     return (
         <>
@@ -253,6 +266,7 @@ function Recommendation() {
                         </Loading>
             ) : (
             <Container>
+                <NavRecommendation />
                 <Title>Recommendation</Title>
                 {/* <FilterBox>
                     <Filterbtn color={mancolor} onClick={onManClick}>남</Filterbtn>
@@ -283,9 +297,21 @@ function Recommendation() {
                 {product&&product.map((item, index) =>
                 <ImgBox key={index}>
                     <Img src={item.img} />
-                    <Name to={`/detailview/${item.id}`}>{item.name.length > 30 ? `${item.name.slice(0, 30)}...` : item.name}</Name>
+                    <Name onClick={(e) => {
+                        setIsOpen(true);
+                        onPush(item.id, e)
+                    }}>{item.name.length > 30 ? `${item.name.slice(0, 30)}...` : item.name}</Name>
+                    {/* <DetailView open={setModalOpen} close={onClose}></DetailView> */}
                 </ImgBox>
                     )}
+                   {isOpen && (
+                            <DetailView 
+                            open={isOpen}
+                            onClose={()=> {
+                                setIsOpen(false);
+                            }}
+                        />
+                        )}
                 </Box>
             </Container>
             )}

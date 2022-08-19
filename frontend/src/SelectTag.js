@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 // import { Helmet } from 'react-helmet';
 import { useState } from 'react';
 import axios from 'axios';
+import NavSelect from './NavSelect';
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -232,6 +233,7 @@ function SelectTag() {
         <>
             <GlobalStyle />
             <Container>
+                <NavSelect />
                 <Title>Select your Tag</Title>
                 <Box>
                     <Img> </Img>

@@ -4,7 +4,7 @@ import StarRating from './StarRating';
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-
+import Recommendation from './Recommendation';
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -52,23 +52,57 @@ table {
 }
 `;
 
-const Container = styled.div`
-    max-width: 480px;
-    margin: 0 auto;
-    padding-left: 50px;
-    padding-right: 50px;
-    height: 844px;
+const Overlay = styled.div`
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.2);
+    z-index: 9999;
     display: flex;
-    align-items: center;
     justify-content: center;
-`;
+    align-items: center;
+`
 
 const Box = styled.div`
     float:left;
     padding: 10px;
     border-radius: 15px;
     box-shadow:0 2px 13px rgba(0, 0, 0, 0.25);
+    background-color: #fff;
 `;
+
+const CloseBox = styled.div`
+    width: 100%;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+`;
+
+const Close = styled.button`
+    width: 80px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+
+    color: white;
+    font-size: 15px;
+
+    span   {
+        color: white;
+        font-size: 20px;
+    }
+`
+
 
 const ImgBox = styled.div`
     width: 270px;
@@ -185,9 +219,12 @@ const Review = styled.div`
 
 
 
-function DetailView() {
-    
-    const { id } = useParams();
+function DetailView({onClose}) {
+
+    const [id, setId] = useState(0);
+    const onPush = (props, e) => {
+        setId((id) => props);
+    }
 
     const [product, setProduct] = useState([]);
     const [rating, setRating] = useState(0);
@@ -205,6 +242,11 @@ function DetailView() {
     }, []);
     console.log(rating)
 
+    //Modal
+    const handleClose = () => {
+        onClose?.();
+    }
+
     return (
         <>
             <GlobalStyle />
@@ -214,8 +256,14 @@ function DetailView() {
                     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
                 </Helmet>
             </HelmetProvider>
-            <Container>
+            <Overlay>
                 <Box>
+                    <CloseBox>
+                        <Close onClick = {handleClose}>
+                        <span className="material-symbols-outlined">close</span>
+                        close
+                        </Close>
+                    </CloseBox>
                     <ImgBox>
                         <Img src={product.img} />
                     </ImgBox>
@@ -241,7 +289,7 @@ function DetailView() {
                     </Description>
 
                 </Box>
-            </Container>
+            </Overlay>
 
         </>
     );

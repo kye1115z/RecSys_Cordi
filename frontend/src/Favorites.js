@@ -135,7 +135,7 @@ function Favorites()    {
         <>
             <GlobalStyle />
             <Container>
-                    <NavFavo></NavFavo>
+                    <NavFavo />
                     {favolist.map((item, index) => (
                         <Box key={item.id}>
                             <Imgbox>

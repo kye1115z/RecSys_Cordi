@@ -10,11 +10,13 @@ import SelectTag from './SelectTag';
 import Recommendation from './Recommendation';
 import DetailView from './DetailView';
 import Dropdown from './Dropdown';
+import Home from './Home';
 
 function Router() {
     return (
         <BrowserRouter>
             <Routes>
+                <Route path='/' element={<Home />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/register2' element={<Registerrr />} />
                 <Route path='/login' element={<Login />} />
@@ -24,7 +26,7 @@ function Router() {
                 <Route path='/favorites' element={<Favorites />} />
                 <Route path='/selecttag' element={<SelectTag />} />
                 <Route path='/recommendation/' element={<Recommendation />} />
-                {/* <Route path='/detailview' element={<DetailView />} /> */}
+                <Route path='/detailview' element={<DetailView />} />
                 <Route path='/detailview/:id' element={<DetailView />} />
                 <Route path='/dropdown' element={<Dropdown />} />
 
