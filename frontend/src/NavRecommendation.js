@@ -24,18 +24,19 @@ const NavBarBack = styled.button`
   background-color: white;
   border: none;
   span {
+    padding-top: 2px;
     font-size: 15px;
     font-weight: bold;
   }
 
   span:first-child  {
-    font-size: 18px;
+    font-size: 17px;
     margin-right: 5px;
   }
 `;
 
 const NavBarBox = styled.div`
-  width: 90px;
+  width: 80px;
   height: 27px;
   display: flex;
   align-items: center;
@@ -43,13 +44,16 @@ const NavBarBox = styled.div`
 `;
 
 const NavBarBtn = styled.button`
-  width: 18px;
-  height: 18px;
+  width: 17px;
+  height: 17px;
   display: flex;
   align-items: center;
   justify-content: center;
   border:none;
   background-color: white;
+  span{
+    font-size: 20px;
+  }
 `;
 
 function NavRecommendation() {
@@ -57,10 +61,10 @@ function NavRecommendation() {
   const onBack = () => {
     window.location.href="/selecttag"
   }
-
   const onSearch = () => {
     window.location.href="/search"
   }
+
   return (
     <>
       <NavBar>
@@ -71,7 +75,7 @@ function NavRecommendation() {
 
         <NavBarBack onClick={onBack}>
           <span className="material-symbols-outlined">arrow_back_ios</span>
-          <span>Recommendation</span>
+          <span>태그 검색</span>
         </NavBarBack>
         <NavBarBox onClick={onSearch}>
           <NavBarBtn><span className="material-symbols-outlined">search</span></NavBarBtn>

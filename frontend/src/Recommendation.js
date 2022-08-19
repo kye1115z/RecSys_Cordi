@@ -61,20 +61,30 @@ table {
 const Container = styled.div`
     max-width: 480px;
     margin: 0 auto;
-    padding-top: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-top: 10px;;
     height: 844px;
+    padding-left: 15px;
+    padding-right: 15px;
+
 `;
 
+const SubContainer = styled.div`
+    max-width: 480px;
+    padding-left: 8px;
+
+`
 const Title = styled.div`
-    width: 100%;
-    height: 100px;
+    width: 97%;
+    height: 60px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
+    border-bottom: 1px solid lightgray;
+    padding-left: 2px;
 
-    font-size: 36px;
-    font-weight: 400;
+    font-size: 30px;
+    font-weight: bolder;
 `;
 
 // const FilterBox = styled.div`
@@ -157,7 +167,7 @@ const Loading = styled.div`
 
 //드롭다운
 const DropBox = styled.div`
-    width: 100%;
+    width: 97%;
     user-select: none;
     position: relative;
 `;
@@ -224,10 +234,12 @@ function Recommendation() {
 
     const [selected, setSelected] = useState("");
 
-    const options = [{id: "", value:'없음'},
+    const options = [{id: "", value:'-'},
                      {id: "?ordering=-rating", value:'전체 별점순'},
                      {id: "?ordering=-man", value:'남자 별점순'},
-                     {id: "?ordering=-woman", value:'여자 별점순'}];
+                     {id: "?ordering=-woman", value:'여자 별점순'},
+                    {id: "?ordering=-cosine_sim", value:'유사도 높은 순'}, 
+                    {id: "?ordering=cosine_sim", value:'유사도 낮은 순'}];
     
 
     const [query, setQuery] = useState("");
@@ -276,6 +288,7 @@ function Recommendation() {
             ) : (
             <Container>
                 <NavRecommendation />
+                <SubContainer>
                 <Title>Recommendation</Title>
                 {/* <FilterBox>
                     <Filterbtn color={mancolor} onClick={onManClick}>남</Filterbtn>
@@ -324,6 +337,7 @@ function Recommendation() {
                         />
                         )}
                 </Box>
+                </SubContainer>
             </Container>
             )}
         </>

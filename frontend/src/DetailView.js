@@ -262,7 +262,7 @@ function DetailView({onClose, product}) {
                             <User>User</User>
                         </MiniBox>
                         <Review>
-                            {/* {product.review.length > 170 ? `${product.review.slice(0, 170)}...` : product.review} */}
+                            {/* {product.review.length() > 170 ? `${product.review.slice(0, 170)}...` : product.review} */}
                             {product.review}
                         </Review>
                     </Description>

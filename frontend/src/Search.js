@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import { useState } from 'react';
 import axios from 'axios';
+import NavHome from './NavHome';
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -52,21 +53,32 @@ table {
 const Container = styled.div`
     max-width: 480px;
     margin: 0 auto;
-    padding-top: 10px;
-    padding-left: 40px;
-    padding-right: 40px;
-    height: 500px;
+    padding-top: 10px;;
+    height: 844px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+`;
+
+const SubContainer = styled.div`
+    max-width: 480px;
+    padding-left: 25px;
+    padding-right: 25px;
+
 `;
 
 const Title = styled.div`
     width: 100%;
-    height: 100px;
-    margin-bottom: 10px;
+    height: 60px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
+    border-bottom: 1px solid lightgray;
+    padding-left: 5px;
 
-    font-size: 36px;
-    font-weight: 400;
+    font-size: 30px;
+    font-weight: bolder;
 `;
 
 const Box = styled.div`
@@ -78,58 +90,60 @@ const Box = styled.div`
 `;
 
 const Subheading = styled.div`
-    height: 15px;
+    height: 13px;
     display: flex;
     align-items: center;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: bold;
 `; 
 
 const TagBox = styled.div`
     width: 100%;
-    height: 80px;
-    margin-bottom: 5px;
+    height: 60px;
+    margin-bottom: 15px;
     padding-left: 5px;
 `;
 
 const Tag = styled.button`
     float: left;
-    margin-right: 10px;
+    margin-right: 8px;
     margin-bottom: 8px;
-    background-color: #E7E7E7;
+    border: 1px solid gray;
+    background-color: white;
     justify-content: center;
-    border-radius: 4px;
-    padding: 5px;
-    border: none;
-
+    border-radius: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
     font-size: 10px;
 `;
 
 const InputBox = styled.div`
   width: 100%;
-  height: 55px;
+  height: 32px;
   display: flex;
   float: left;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   justify-content: center;
 `;
 const InputText = styled.input`
-  width: 180px;
+  width: 50%;
   height: 30px;
   border: 2px solid black;
   padding-left: 10px;
   margin-right: 10px;
 
-  font-size: 15px;
+  font-size: 12px;
 `;
 
 const InputTopn = styled.input`
-    width: 80px;
+    width: 32%;
     height: 30px;
     border: 2px solid black;
     padding-left: 10px;
 
-    font-size: 15px;
+    font-size: 12px;
 `
 
 const FormBox = styled.div`
@@ -177,6 +191,11 @@ function Search() {
       setInputs(inputs => [...inputs, input_text])
     };
 
+    const onReset = () => {
+        setInputs('')
+    };
+
+
     const handleChange2 = (e) =>  {
         setInput_text(e.target.value);
     };
@@ -194,8 +213,12 @@ function Search() {
                 })
                 .then((response) => {
                     console.log(response.data)
-                   alert("오래 기다리셨습니다!")
-                   window.location.href="http://localhost:3000/recommendation"
+                   if(response.data.name==="해당되는 추천이 없습니다. 다시 입력해주세요") {
+                        alert("해당되는 추천이 없습니다. 다시 입력해주세요.")
+                   } else {
+                    alert("오래 기다리셨습니다!", response.data.name, response.data.time)
+                    window.location.href="http://localhost:3000/recommendation"
+                   }
                 })
                 .catch((err) => console.log(err));
 
@@ -222,9 +245,11 @@ function Search() {
         <>
             <GlobalStyle />
             <Container>
-                <Title>Search</Title>
+                <NavHome />
+                <SubContainer>
+                <Title>키워드 검색</Title>
                 <Box>
-                    <Subheading>키워드 검색</Subheading>
+                    <Subheading>카테고리 선택</Subheading>
                 </Box>
                 <TagBox>
                 {categorylist.map((item, index) =>
@@ -240,14 +265,17 @@ function Search() {
                 </TagBox>
                 <FormBox onSubmit={onSubmit}>
                     <InputBox>
-                        <InputText value={input_text || ''} onChange={handleChange2} placeholder='Search all products' />
+                        <InputText value={input_text || ''} onChange={handleChange2} placeholder='키워드를 입력하세요.' />
                         <InputTopn value={topn || ''} onChange={handleChange} placeholder="Top N"/>
                     </InputBox>
 
                     <SubmitBox>
-                        <Submit onClick={onCreate}>완료</Submit>
+                        <Submit onClick={()=>{
+                                        onCreate()
+                                        onReset()}}>완료</Submit>
                     </SubmitBox>
                 </FormBox>
+                </SubContainer>
             </Container>
         </>
     );

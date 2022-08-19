@@ -9,7 +9,7 @@ import Favorites from './Favorites';
 import SelectTag from './SelectTag';
 import Recommendation from './Recommendation';
 import DetailView from './DetailView';
-import Dropdown from './Dropdown';
+// import Dropdown from './Dropdown';
 import Home from './Home';
 import Keyword from './Keyword';
 import KeyRecommendation from './KeyRecommendation';
@@ -30,7 +30,7 @@ function Router() {
                 <Route path='/recommendation/' element={<Recommendation />} />
                 <Route path='/detailview' element={<DetailView />} />
                 <Route path='/detailview/:id' element={<DetailView />} />
-                <Route path='/dropdown' element={<Dropdown />} />
+                {/* <Route path='/dropdown' element={<Dropdown />} /> */}
                 <Route path='/keyword' element={<Keyword />} />
                 <Route path='/keyrecommendation' element={<KeyRecommendation />} />
 

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import axios from 'axios';
 import KeyRecommendation from './KeyRecommendation';
+import NavHome from './NavHome';
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -54,23 +55,33 @@ table {
 const Container = styled.div`
     max-width: 480px;
     margin: 0 auto;
-    padding-top: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    height: 500px;
+    padding-top: 10px;;
+    height: 844px;
+    padding-left: 15px;
+    padding-right: 15px;
+
 `;
+
+const SubContainer = styled.div`
+    max-width: 480px;
+    padding-left: 8px;
+
+`
 
 const Title = styled.div`
     width: 100%;
     height: 60px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
-    font-size: 36px;
-    font-weight: 400;
     border-bottom: 1px solid lightgray;
+    padding-left: 5px;
+
+    font-size: 30px;
+    font-weight: bolder;
 `;
+
 const Box = styled.div`
   width: 100%;
   height: 55px;
@@ -137,6 +148,8 @@ function Keyword() {
                 </Helmet>
             </HelmetProvider>
             <Container>
+            <NavHome />
+                <SubContainer>
                 <Title>상품명 검색</Title>
                 <Box>
                     <Input onChange={onChange} placeholder='Search all products' />
@@ -154,6 +167,7 @@ function Keyword() {
                             product={product}
                         />
                         )}
+            </SubContainer>
             </Container>
         </>
     );

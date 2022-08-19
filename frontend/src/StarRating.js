@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
-import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 const GlobalStyle = createGlobalStyle`
@@ -97,7 +96,7 @@ function StarRating({value}) {
     };
     useEffect(() => {
         setRatesResArr(calcStarRates)
-    }, [])
+    }, [setRatesResArr])
 
     return (
         <>

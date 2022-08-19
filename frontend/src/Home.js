@@ -59,7 +59,7 @@ const Container = styled.div`
 
 const Header = styled.div`
     width: 100%;
-    height: 50px;
+    height: 70px;
     display: flex;
     align-items: center;
     padding-bottom: 5px;
