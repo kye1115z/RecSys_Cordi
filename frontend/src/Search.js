@@ -174,8 +174,7 @@ function Search() {
     const [inputs, setInputs] = useState([]);
 
     const onCreate = () => {
-      setInputs(inputs => [...inputs, input_text]);
-      setInput_text('');
+      setInputs(inputs => [...inputs, input_text])
     };
 
     const handleChange2 = (e) =>  {
@@ -193,8 +192,13 @@ function Search() {
                     input_text: input_text.toString(),
                     top_n: topn,
                 })
-                .then((response) => console.log(response.data))
+                .then((response) => {
+                    console.log(response.data)
+                   alert("오래 기다리셨습니다!")
+                   window.location.href="http://localhost:3000/recommendation"
+                })
                 .catch((err) => console.log(err));
+
 
             // if( !== undefined){
                 // window.location.href="http://localhost:3000/recommendation"

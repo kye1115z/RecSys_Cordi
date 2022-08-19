@@ -202,11 +202,14 @@ function SelectTag() {
                     input_text: detail2.join(' '),
                     top_n: topn,
                 })
-                .then((response) => console.log(response.data))
+                .then((response) => {
+                    console.log(response.data)
+                   alert("오래 기다리셨습니다!")
+                   window.location.href="http://localhost:3000/recommendation"
+                })
                 .catch((err) => console.log(err));
 
             // if( !== undefined){
-                 window.location.href="http://localhost:3000/recommendation"
                 // }
             // else {
             // return null;
@@ -224,7 +227,7 @@ function SelectTag() {
     const toggleActive = () =>  {
         setTagActive((tagActive)=>!tagActive)
     };
-    
+
     return (
         <>
             <GlobalStyle />

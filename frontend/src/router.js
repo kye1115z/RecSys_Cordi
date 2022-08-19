@@ -8,6 +8,8 @@ import OrderConfirmed from './OrderConfirmed';
 import Favorites from './Favorites';
 import SelectTag from './SelectTag';
 import Recommendation from './Recommendation';
+import DetailView from './DetailView';
+import Dropdown from './Dropdown';
 
 function Router() {
     return (
@@ -21,7 +23,12 @@ function Router() {
                 <Route path='/orderconfirmed' element={<OrderConfirmed />} />
                 <Route path='/favorites' element={<Favorites />} />
                 <Route path='/selecttag' element={<SelectTag />} />
-                <Route path='/recommendation' element={<Recommendation />} />
+                <Route path='/recommendation/' element={<Recommendation />} />
+                {/* <Route path='/detailview' element={<DetailView />} /> */}
+                <Route path='/detailview/:id' element={<DetailView />} />
+                <Route path='/dropdown' element={<Dropdown />} />
+
+
             </Routes>
         </BrowserRouter>
     );
