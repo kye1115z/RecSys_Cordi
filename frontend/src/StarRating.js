@@ -60,7 +60,7 @@ const StarRateWrap = styled.div`
         }
 `;
 
-function StarRating(props) {
+function StarRating({value}) {
 
     // const { id } = useParams();
 
@@ -79,7 +79,7 @@ function StarRating(props) {
     // }, []);
     // console.log("바뀌었나?", product)
 
-    const AVR_RATE = props.value;
+    const AVR_RATE = value;
     console.log("얏호", AVR_RATE);
     const STAR_IDX_ARR = ['first', 'second', 'third', 'fourth', 'last'];
     const [ratesResArr, setRatesResArr] = useState([0, 0, 0, 0, 0]);

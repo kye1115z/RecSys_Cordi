@@ -11,6 +11,8 @@ import Recommendation from './Recommendation';
 import DetailView from './DetailView';
 import Dropdown from './Dropdown';
 import Home from './Home';
+import Keyword from './Keyword';
+import KeyRecommendation from './KeyRecommendation';
 
 function Router() {
     return (
@@ -29,6 +31,8 @@ function Router() {
                 <Route path='/detailview' element={<DetailView />} />
                 <Route path='/detailview/:id' element={<DetailView />} />
                 <Route path='/dropdown' element={<Dropdown />} />
+                <Route path='/keyword' element={<Keyword />} />
+                <Route path='/keyrecommendation' element={<KeyRecommendation />} />
 
 
             </Routes>

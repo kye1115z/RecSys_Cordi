@@ -219,28 +219,7 @@ const Review = styled.div`
 
 
 
-function DetailView({onClose}) {
-
-    const [id, setId] = useState(0);
-    const onPush = (props, e) => {
-        setId((id) => props);
-    }
-
-    const [product, setProduct] = useState([]);
-    const [rating, setRating] = useState(0);
-
-    const getProduct = async () => {
-        const json = await (
-          await fetch(`http://localhost:8000/results/${id}`)
-        ).json();
-        setProduct(json)
-        setRating(json.rating.toFixed(1))
-      };
-      
-    useEffect(() => {
-        getProduct();
-    }, []);
-    console.log(rating)
+function DetailView({onClose, product}) {
 
     //Modal
     const handleClose = () => {
@@ -271,8 +250,8 @@ function DetailView({onClose}) {
                         <Category>{product.coordi}</Category>
                         <Name>{product.name}</Name>
                         <MiniBox>
-                            <StarRating value={rating}/>
-                            <Rating>{rating}</Rating>
+                            <StarRating value={product.rating}/>
+                            <Rating>{product.rating}</Rating>
                         </MiniBox>
                         <Price>{product.price}</Price>
                         <Title>구매후기</Title>
