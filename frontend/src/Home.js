@@ -72,9 +72,9 @@ const Header = styled.div`
 `;
 
 const Box = styled.div`
-    width: 90%;
-    padding-left: 25px;
+    width: 100%;
     display: flex;
+    justify-content: center;
 `;
 
 const FirstBox = styled.div`
@@ -86,16 +86,28 @@ const FirstBox = styled.div`
     flex-direction: column;
     margin-right: 20px;
 
-`
+`;
 
 const SelectTagBtn = styled.button`
     width: 145px;
     height: 240px;
-    box-shadow: 0px 0px 3px 3px lightgray;
+    box-shadow: 0px 0px 2px 1px lightgray;
     margin-bottom: 20px;
 
     border: none;
     border-radius: 30px;
+    background: linear-gradient(180deg, rgb(254,218,229) 0%, rgb(253,173,198) 19%, rgb(253,156,187) 48%);
+`;
+
+const MusinsaBtn = styled.button`
+    width: 145px;
+    height: 130px;
+    box-shadow: 0px 0px 2px 1px lightgray;
+
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(180deg, rgb(182,182,182) 0%, rgb(70,70,70) 19%, rgb(13,13,13) 66%);
+
 `;
 
 const SecondBox = styled.div`
@@ -106,38 +118,31 @@ const SecondBox = styled.div`
     align-items: top;
     flex-direction: column;
 `;
+
 const SearchBtn = styled.button`
     width: 145px;
     height: 170px;
-    box-shadow: 0px 0px 3px 3px lightgray;
+    box-shadow: 0px 0px 2px 1px lightgray;
     margin-bottom: 20px;
 
     border: none;
     border-radius: 30px;
+    background: linear-gradient(180deg, rgb(250,238,218) 0%, rgb(243,212,163) 19%, rgb(235,186,107) 48%);
 `;
 
 const KeywordBtn = styled.button`
     width: 145px;
     height: 200px;
-    box-shadow: 0px 0px 3px 3px lightgray;
+    box-shadow: 0px 0px 2px 1px lightgray;
 
     border: none;
     border-radius: 30px;
-`;
-
-const MusinsaBtn = styled.button`
-    width: 145px;
-    height: 130px;
-    box-shadow: 0px 0px 3px 3px lightgray;
-
-    border: none;
-    border-radius: 30px;
-
+    background: linear-gradient(180deg, rgb(194,244,252) 0%, rgb(133,232,248) 19%, rgb(11,208,240) 48%);
 `;
 
 const BtnTopBox = styled.div`
     width: 80%;
-    height: 80%;
+    height: 85%;
     display: flex;
     justify-content: center;
     align-items: top;
@@ -147,19 +152,34 @@ const BtnTopBox = styled.div`
 const BtnBottomBox = styled.div`
     width: 80%;
     height: 80%;
-    display: flex;
-    justify-content: left;
-    align-items: bottom;
+    padding-top: 25%;
     padding-left: 12px;
 `;
 
+const BtnBottomRight = styled.div`
+    width: 80%;
+    height: 80%;
+    padding-top: 40%;
+    padding-left: 12px;
+    display: flex;
+    align-items: center;
+`;
+
+const BtnBox = styled.div`
+    width: 80%;
+    height: 80%;
+    padding-top: 55%;
+    padding-left: 12px;
+    display: flex;
+    align-items: center;
+`
+
 const Title = styled.div`
     height: 50px;
-    font-size: 18px;
+    font-size: 19px;
     font-weight: bold;
     color: white;
     vertical-align: bottom;
-    float: left;
     p{
         float: left;
     }
@@ -168,6 +188,22 @@ const Title = styled.div`
 
 
 function Home({onClose}) {
+
+    const onClick1 = () => {
+        window.location.href="/selecttag"
+    }
+
+    const onClick2 = () => {
+        window.location.href="https://www.musinsa.com/app/"
+    }
+
+    const onClick3 = () => {
+        window.location.href="/search"
+    }
+
+    const onClick4 = () => {
+        window.location.href="/keyword"
+    }
 
     return (
         <>
@@ -183,18 +219,23 @@ function Home({onClose}) {
                 <Header>❤무지사랑해❤</Header>
                 <Box>
                     <FirstBox>
-                        <SelectTagBtn>
+                        <SelectTagBtn onClick={onClick1}>
                             <BtnTopBox>
-                                <Title><p>태그로</p>
+                                <Title><div>
+                                        <p>태그로</p>
                                         <p>추천받기</p>
+                                        </div>
                                 </Title>
                             </BtnTopBox>
                         </SelectTagBtn>
 
                         <MusinsaBtn>
-                            <BtnBottomBox>
-                                <Title><p>무신사에서</p>
-                                       <p>더 찾아보기</p>
+                            <BtnBottomBox onClick={onClick2}>
+                                <Title><div>
+                                        <p>무신사</p>
+                                        <p>스토어</p>
+                                        <p>바로가기</p>
+                                        </div>
                                 </Title>
                             </BtnBottomBox>
                         </MusinsaBtn>
@@ -202,22 +243,27 @@ function Home({onClose}) {
 
                     <SecondBox>
                         <SearchBtn>
-                            <BtnBottomBox>
-                                <Title><p>키워드로</p>
-                                       <p>검색하기</p>
+                            <BtnBottomRight onClick={onClick3}>
+                                <Title><div>
+                                        <p>키워드로</p>
+                                        <p>검색하기</p>
+                                        </div>
                                 </Title>
-                            </BtnBottomBox>
+                            </BtnBottomRight>
                         </SearchBtn>
 
                         <KeywordBtn>
-                            <BtnBottomBox>
-                                <Title><p>상품</p>
-                                       <p>검색하기</p>
+                            <BtnBox onClick={onClick4}>
+                                <Title><div>
+                                        <p>상품</p>
+                                        <p>검색하기</p>
+                                        </div>
                                 </Title>
-                            </BtnBottomBox>
+                            </BtnBox>
                         </KeywordBtn>
                     </SecondBox>
                 </Box>
+                <p>색 조합 추천해주세요</p>
             </Container>
         
 

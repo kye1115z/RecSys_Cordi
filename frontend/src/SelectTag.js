@@ -61,11 +61,15 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-    width: 100%;
-    height: 100px;
-    margin-bottom: 20px;
+    width: 100%; 
+    height: 100px;   
+    margin-top: 30px;
     display: flex;
     align-items: center;
+    font-size: 36px;
+    font-weight: 400;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 20px;
 
     font-size: 36px;
     font-weight: 400;
@@ -234,7 +238,7 @@ function SelectTag() {
             <GlobalStyle />
             <Container>
                 <NavSelect />
-                <Title>Select your Tag</Title>
+                <Title>태그를 선택하세요</Title>
                 <Box>
                     <Img> </Img>
                     <Subheading>패션</Subheading>

@@ -137,7 +137,7 @@ function Keyword() {
                 </Helmet>
             </HelmetProvider>
             <Container>
-                <Title>Search</Title>
+                <Title>상품명 검색</Title>
                 <Box>
                     <Input onChange={onChange} placeholder='Search all products' />
                     <Btn onClick={()=>{

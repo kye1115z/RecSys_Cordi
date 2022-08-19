@@ -224,7 +224,7 @@ function Search() {
             <Container>
                 <Title>Search</Title>
                 <Box>
-                    <Subheading>Category</Subheading>
+                    <Subheading>키워드 검색</Subheading>
                 </Box>
                 <TagBox>
                 {categorylist.map((item, index) =>
