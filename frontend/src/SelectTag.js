@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 // import { Helmet } from 'react-helmet';
 import { useState } from 'react';
 import axios from 'axios';
+import NavSelect from './NavSelect';
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -202,11 +203,14 @@ function SelectTag() {
                     input_text: detail2.join(' '),
                     top_n: topn,
                 })
-                .then((response) => console.log(response.data))
+                .then((response) => {
+                    console.log(response.data)
+                   alert("오래 기다리셨습니다!")
+                   window.location.href="http://localhost:3000/recommendation"
+                })
                 .catch((err) => console.log(err));
 
             // if( !== undefined){
-                 window.location.href="http://localhost:3000/recommendation"
                 // }
             // else {
             // return null;
@@ -224,11 +228,12 @@ function SelectTag() {
     const toggleActive = () =>  {
         setTagActive((tagActive)=>!tagActive)
     };
-    
+
     return (
         <>
             <GlobalStyle />
             <Container>
+                <NavSelect />
                 <Title>Select your Tag</Title>
                 <Box>
                     <Img> </Img>
