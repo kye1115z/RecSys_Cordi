@@ -207,7 +207,7 @@ const DropItem = styled.div`
 
 
 
-function Recommendation() {
+function KeyRecommendation({name}) {
 
     // if(selected === "없음") {
     //     getProduct()
@@ -219,18 +219,6 @@ function Recommendation() {
     //     getWoman()
     // }
 
-    //드롭다운
-    const [isActive, setIsActive] = useState(false);
-
-    const [selected, setSelected] = useState("");
-
-    const options = [{id: "", value:'없음'},
-                     {id: "?ordering=-rating", value:'전체 별점순'},
-                     {id: "?ordering=-man", value:'남자 별점순'},
-                     {id: "?ordering=-woman", value:'여자 별점순'}];
-    
-
-    const [query, setQuery] = useState("");
 
     //post
     const [loading, setLoading] = useState(true);
@@ -240,7 +228,7 @@ function Recommendation() {
     const getProduct = async() => {
         const json = await (    
             await fetch(
-                `http://localhost:8000/results/${query}`
+                `http://localhost:8000/product/?name=${name}`
             )
         ).json();
         setProduct(json)
@@ -277,31 +265,6 @@ function Recommendation() {
             <Container>
                 <NavRecommendation />
                 <Title>Recommendation</Title>
-                {/* <FilterBox>
-                    <Filterbtn color={mancolor} onClick={onManClick}>남</Filterbtn>
-                    <Filterbtn color={womancolor} onClick={onWomanClick}>여</Filterbtn>
-                </FilterBox> */}
-                {/* <Dropdown /> */}
-                <DropBox>
-                    <DropdownBtn onClick={(e)=>{
-                        setIsActive(!isActive);
-                    }}>{selected}
-                        <span className="material-symbols-outlined">arrow_drop_down</span>
-                    </DropdownBtn>
-                    {isActive && (
-                        <DropContent>
-                            {options.map(option => (
-                                <DropItem onClick={(e) => {
-                                    setSelected(option.value)
-                                    setQuery(option.id)
-                                    setIsActive(false)
-                                    }} >
-                                        {option.value}
-                                </DropItem>
-                            ))}
-                        </DropContent>
-                    )}
-                </DropBox>
                 <Box>
                 {product&&product.map((item, index) =>
                 <ImgBox key={index}>
@@ -335,4 +298,4 @@ function Recommendation() {
 //     id: PropTypes.number.isRequired,
 //   };
 
-export default Recommendation;
+export default KeyRecommendation;

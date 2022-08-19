@@ -139,9 +139,9 @@ const BtnTopBox = styled.div`
     width: 80%;
     height: 80%;
     display: flex;
-    justify-content: left;
+    justify-content: center;
     align-items: top;
-    padding: 8px;
+    padding-left: 12px;
 `;
 
 const BtnBottomBox = styled.div`
@@ -150,15 +150,19 @@ const BtnBottomBox = styled.div`
     display: flex;
     justify-content: left;
     align-items: bottom;
-    padding: 8px;
+    padding-left: 12px;
 `;
 
 const Title = styled.div`
-    font-size: 20px;
+    height: 50px;
+    font-size: 18px;
     font-weight: bold;
     color: white;
-    text-align: bottom;
-    justify-content: left;
+    vertical-align: bottom;
+    float: left;
+    p{
+        float: left;
+    }
 `;
 
 
@@ -199,7 +203,7 @@ function Home({onClose}) {
                     <SecondBox>
                         <SearchBtn>
                             <BtnBottomBox>
-                                <Title><p>상품</p>
+                                <Title><p>키워드로</p>
                                        <p>검색하기</p>
                                 </Title>
                             </BtnBottomBox>
@@ -207,7 +211,7 @@ function Home({onClose}) {
 
                         <KeywordBtn>
                             <BtnBottomBox>
-                                <Title><p>키워드로</p>
+                                <Title><p>상품</p>
                                        <p>검색하기</p>
                                 </Title>
                             </BtnBottomBox>
