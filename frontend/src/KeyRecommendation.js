@@ -62,50 +62,13 @@ const Container = styled.div`
     max-width: 480px;
     margin: 0 auto;
     padding-top: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
     height: 844px;
 `;
-
-const Title = styled.div`
-    width: 100%;
-    height: 100px;
-    display: flex;
-    align-items: center;
-
-    font-size: 36px;
-    font-weight: 400;
-`;
-
-// const FilterBox = styled.div`
-//     width: 100%;
-//     height: 40px;
-//     display: flex;
-//     align-items: center;
-//     justify-content: right;
-//     margin-bottom: 20px;
-// `;
-
-// const Filterbtn = styled.button`
-//     width: 23px;
-//     height: 23px;
-//     border-radius: 4px;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     border: 3px;
-//     border-color: black;
-//     background-color: ${props => props.color};;
-//     margin-right: 10px;
-
-//     font-size: 10px;
-// `;
-
 
 const Box = styled.div`
     width: 100%;
     height: 700px;
-    padding-left: 3px;
+    padding-left: 5px;
 `;
 const ImgBox = styled.div`
     width: 100px;
@@ -142,109 +105,17 @@ const Name = styled.button`
     padding-top: 6px;
 `;
 
-const Loading = styled.div`
-    width: 100%;
-    height: 800px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    span{
-        font-size: 70px;
-        color: black;
-    }
-`;
-
-//드롭다운
-const DropBox = styled.div`
-    width: 100%;
-    user-select: none;
-    position: relative;
-`;
-
-const DropdownBtn = styled.button`
-    width: 100%;
-    height: 40px;
-    padding: 15px 20px;
-    background-color: #fff;
-    border: none;
-    box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.06);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-
-    font-weight: bold;
-    color: #333;
-`
-
-const DropContent = styled.div`
-    width: 95%;
-    position: absolute;
-    top: 110%;
-    padding: 10px;
-    background: #fff;
-    box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.06);
-    z-index: 1;
-
-    font-weight: 500;
-    color: #333;
-`;
-
-const DropItem = styled.div`
-    padding: 10px;
-    cursor: pointer;
-    transition: all 0.2s;
-
-    &:hover{
-        background-color: #f4f4f4;
-    }
-`;
 
 
 
 
 
+function KeyRecommendation({name, product}) {
 
 
-function KeyRecommendation({name}) {
-
-    // if(selected === "없음") {
-    //     getProduct()
-    // } else if (selected === "전체 별점순") {
-    //     getRating()
-    // } else if (selected === "남자 별점순") {
-    //     getMan()
-    // } else if (selected === "여자 별점순") {
-    //     getWoman()
-    // }
-
-
-    //post
-    const [loading, setLoading] = useState(true);
-    const [product, setProduct] = useState([]);
-    const [id, setId] = useState({});
-
-    const getProduct = async() => {
-        const json = await (    
-            await fetch(
-                `http://localhost:8000/product/?name=${name}`
-            )
-        ).json();
-        setProduct(json)
-        setLoading(false);
-    };
-    useEffect(()=>{
-        getProduct()
-    })
-    
-    //getID
-        const getID = (id) => {axios.get(
-            `http://localhost:8000/results/${id}`
-        )
-            .then((response)=>setId(response.data))
-        }
-
+    console.log(product);
+    const [clothes, setClothes] = useState({});
+  
     //모달
     const [isOpen, setIsOpen] = useState(false);
 
@@ -258,20 +129,15 @@ function KeyRecommendation({name}) {
                 </Helmet>
             </HelmetProvider>
 
-            {loading ? (<Loading>
-                            <span className="material-symbols-outlined">autorenew</span>
-                        </Loading>
-            ) : (
             <Container>
-                <NavRecommendation />
-                <Title>Recommendation</Title>
                 <Box>
                 {product&&product.map((item, index) =>
                 <ImgBox key={index}>
                     <Img src={item.img} />
                     <Name onClick={(e) => {
                         setIsOpen(true);
-                        getID(item.id);
+                        setClothes(item);
+
 
                     }}>{item.name.length > 30 ? `${item.name.slice(0, 30)}...` : item.name}</Name>
                     {/* <DetailView open={setModalOpen} close={onClose}></DetailView> */}
@@ -283,12 +149,11 @@ function KeyRecommendation({name}) {
                             onClose={()=> {
                                 setIsOpen(false);
                             }}
-                            product={id}
+                            product={clothes}
                         />
                         )}
                 </Box>
             </Container>
-            )}
         </>
     );
 }

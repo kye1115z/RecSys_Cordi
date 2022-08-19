@@ -55,8 +55,8 @@ const Container = styled.div`
     max-width: 480px;
     margin: 0 auto;
     padding-top: 10px;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
     height: 500px;
 `;
 
@@ -109,6 +109,7 @@ const Btn = styled.button`
 function Keyword() {
     const [text, setText] = useState('')
     const [clicked, setClicked] = useState(false)
+    const [product, setProduct] = useState([]);
 
     const onChange = (e) => {
         setText(e.target.value);
@@ -116,18 +117,13 @@ function Keyword() {
 
     console.log(text)
 
-    // const getName = async(text) => {
-    //     const json = await (    
-    //         await fetch(
-    //             `http://localhost:8000/product/?name=${text}`
-    //         )
-    //     ).json();
-    //     setProduct(json)
-    //     console.log(product)
-    // };
-    // useEffect(()=>{
-    //     getName()
-    // })
+    const fetchData = (text) => {
+        axios.get(`http://localhost:8000/product/?name=${text}`)
+        .then((response) => {setProduct(response.data.postList);
+        console.log(response)})
+    } 
+
+
 
 
 
@@ -147,13 +143,15 @@ function Keyword() {
                     <Btn onClick={()=>{
                                 setClicked(true);
                                 setText('');
-                                window.location.href ="/keyrecommendation"}}>
+                                fetchData(text)}
+                                }>
                         <span className="material-symbols-outlined">search</span>
                     </Btn>
                 </Box>
                 {clicked && (
                             <KeyRecommendation
                             name={text}
+                            product={product}
                         />
                         )}
             </Container>
