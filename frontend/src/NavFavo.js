@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Helmet } from 'react-helmet';
+import GlobalStyle from './GlobalStyle';
 
 const MypageImg = styled.img`
   width: 18px;
@@ -48,6 +49,7 @@ function NavFavo() {
   }
   return (
     <>
+      <GlobalStyle />
       <NavBar>
         <Helmet>
         <link rel="stylesheet" 
