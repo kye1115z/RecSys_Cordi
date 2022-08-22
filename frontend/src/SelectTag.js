@@ -76,7 +76,7 @@ const TagBox = styled.div`
     padding-left: 22px;  
 `;
 
-const Tag = styled.button`
+const TagLabel = styled.button`
     float:left;
     margin-right: 8px;
     margin-bottom: 5px;
@@ -91,6 +91,11 @@ const Tag = styled.button`
 
     font-size: 10px;
     color: gray;
+`;
+
+const TagInput = styled.input`
+    width: 30px;
+    height: 30px;
 `;
 
 const InputBox = styled.form`
@@ -157,6 +162,7 @@ function SelectTag() {
                         {id: 11, detail: "재질", value: "재질"}, {id: 12, detail: "기장", value: "기장"}
     ];
 
+    //체크된 요소들 담는 곳
     const [fashion2, setFashion2] = useState([]);
     const [coordi2, setCoordi2] = useState([]);
     const [detail2, setDetail2] = useState([]);
@@ -166,6 +172,7 @@ function SelectTag() {
     console.log(detail2);
     console.log(topn);
 
+    //topn 변화 관리
     const handleChange = ({target: {value}}) => setTopn(value);
 
     // const [data, setData] = useState();
@@ -202,12 +209,43 @@ function SelectTag() {
 
 
 
-    //TAG 클릭 배열 삭제, 추가
-    const [tagActive, setTagActive] = useState(false);
+    //체크박스 선택 되었는지 아닌지
+    // const [tagActive, setTagActive] = useState(false);
 
-    const toggleActive = () =>  {
-        setTagActive((tagActive)=>!tagActive)
+    // const toggleActive = ({target}) =>  {
+    //     setTagActive((tagActive)=>!tagActive)
+    // };
+    
+    //변화감지(체크여부), 필요한 값 받아오기
+    const onChangeFa = (checked, item) => {
+        if(checked) {
+            setFashion2([...fashion2, item]);
+            // && fashion2.has(item) else if 조건에 들어가
+        } else if (!checked && fashion2.includes(item)) {
+           console.log(setFashion2(fashion2.filter(el => el !== item)));
+        }
     };
+
+    const onChangeCo = (checked, item) => {
+        if(checked) {
+            setCoordi2(coordi2.concat(item.coordi));
+
+        } else if (!checked && coordi2.includes(item)) {
+           console.log(setCoordi2(coordi2.filter((el => el !== item))));
+
+        }
+    };
+
+    const onChangeDe = (checked, item) => {
+        if(checked) {
+            setDetail2(detail2.concat(item.detail));
+
+        } else if (!checked && detail2.includes(item)) {
+           console.log(setDetail2(detail2.filter((el => el   !== item))));
+
+        }
+    };
+
 
     return (
         <>
@@ -230,53 +268,64 @@ function SelectTag() {
                     </Box>
                     <TagBox>
                     {categorylist.map((item, index) =>
-                        <Tag onClick={()=>
-                            {toggleActive()
-                            !tagActive ? (setFashion2(fashion2.concat(item.fashion)))
-                            : (console.log(setFashion2(fashion2.filter(categorylist => categorylist.fashion !== fashion2.fashion))))
-                            }}
-                            key={item.id} >
-                                {item.fashion}
-                        </Tag>
+                        <TagLabel key={item.id}>
+                            <TagInput
+                                type="checkbox"
+                                value={item.fashion} 
+                                // onClick={() => {toggleActive()}}
+                                onChange={(e) => {
+                                    onChangeFa(e.target.checked, e.target.value)
+                                }}
+                                checked = {fashion2.includes(item.fashion) ? true : false}
+                                />
+                                    {item.fashion}
+                        </TagLabel>
                         )}
                     </TagBox>
+                    
                     <Box>
                     <Img>
                         <span className="material-symbols-outlined">styler</span>
                     </Img>
                     <Subheading>코디</Subheading>
-                    </Box>
-                    <TagBox>
-                    {coordilist.map((item, index) =>
-                        <Tag onClick={()=>
-                            {toggleActive()
-                            !tagActive ? (setCoordi2(coordi2.concat(item.coordi)))
-                            : (console.log(setCoordi2(fashion2.filter(coordilist => coordilist.coordi !== coordi2.coordi))))
-                            }}
-                            key={item.id}>
-                                {item.coordi}
-                        </Tag>
-                        )}
-                    </TagBox>
-                    
+                     </Box>
+
+                     {coordilist.map((item, index) =>
+                     <TagLabel key={item.id}>
+                            <TagInput
+                                type="checkbox"
+                                value={item.coordi} 
+                                // onClick={() => {toggleActive()}}
+                                onChange={e => {
+                                    onChangeFa(e.target.tagActive, e.target.value)
+                                }} 
+                                checked = {coordi2.includes(item.fashion) ? true : false}
+                                />
+                                    {item.coordi}
+                        </TagLabel>
+                    )}
                     <Box>
+
                     <Img> 
                         <span className="material-symbols-outlined">more</span>
                     </Img>
                     <Subheading>More</Subheading>
                     </Box>
-                    <TagBox>
-                    {detailList.map((item, index) =>
-                        <Tag onClick={()=>
-                            {toggleActive()
-                            !tagActive ? (setDetail2(detail2.concat(item.detail)))
-                            : (console.log(setDetail2(detail2.filter(detailList => detailList.fashion !== detail2.detail))))
-                            }}
-                            key={item.id}>
-                                {item.detail}
-                        </Tag>
-                        )}
-                    </TagBox>
+                        {detailList.map((item, index) =>
+                        <TagLabel key={item.id}>
+                            <TagInput
+                                type="checkbox"
+                                value={item.detail} 
+                                // onClick={() => {toggleActive()}}
+                                onChange={e => {
+                                    onChangeFa(e.target.tagActive, e.target.value)
+                                }} 
+                                checked = {detail2.includes(item.fashion) ? true : false}
+                                />
+                                    {item.detail}
+                        </TagLabel>
+                    )}
+
                     <FormBox onSubmit={onSubmit}>
                         <InputBox>
                             <Input value={topn || ''} onChange={handleChange} placeholder="Top N"/>

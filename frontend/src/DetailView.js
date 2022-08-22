@@ -162,10 +162,12 @@ const User = styled.div`
 `
 const Review = styled.div`
     width: 230px;
+    max-height: 144px;
     padding-left: 22px;
     float:left;
     font-size: 15px;
     line-height: 120%;
+    overflow: scroll;
 `;
 
 

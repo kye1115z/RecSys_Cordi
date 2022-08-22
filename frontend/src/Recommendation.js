@@ -19,6 +19,7 @@ const Container = styled.div`
 const SubContainer = styled.div`
     max-width: 480px;
     padding-left: 8px;
+    overflow: scroll;
 
 `
 const Title = styled.div`
