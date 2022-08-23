@@ -13,7 +13,7 @@ const Container = styled.div`
     height: 844px;
     padding-left: 15px;
     padding-right: 15px;
-
+    overflow: scroll;
 `;
 
 const SubContainer = styled.div`
@@ -71,31 +71,56 @@ const Subheading = styled.div`
 
 const TagBox = styled.div`
     width: 95%;
-    height: 80px;
+    height: 130px;
     margin-bottom: 20px;
-    padding-left: 22px;  
+    padding-left: 20px;  
+    vertical-align: middle;
 `;
 
-const TagLabel = styled.button`
-    float:left;
+const TagLabel = styled.div`
+    width: fit-content;
+    float: left;
     margin-right: 8px;
     margin-bottom: 5px;
-    border: 1px solid gray;
     background-color: white;
+    border: 2px solid ${props => props.checked ? "black" : "rgb(240, 240, 240)"};
     justify-content: center;
     border-radius: 5px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 7px;
+    padding-right: 7px;
+    display: flex;
+    align-items: center;
 
     font-size: 10px;
     color: gray;
 `;
 
 const TagInput = styled.input`
-    width: 30px;
-    height: 30px;
+    width: 13px;
+    height: 13px;
+    appearance: none;
+    border-radius: 50%;
+    background-color: rgb(240, 240, 240);
+    margin: 0px;
+
+    &:checked {
+        background-color: transparent;
+
+        background-size: 100% 100%;
+        background-image: 
+        url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-color: black;
+    }
+`;
+
+
+const TagText = styled.div`
+    font-size: 10px;
+    margin-left: 6px;
 `;
 
 const InputBox = styled.form`
@@ -108,9 +133,9 @@ const InputBox = styled.form`
 `;
 
 const Input = styled.input`
-    width: 25%;
+    width: 33%;
     height: 30px;
-    padding-left: 10px;
+    padding-left: 15px;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     border: 2px solid black;
@@ -128,7 +153,7 @@ const FormBox = styled.div`
 const Submit = styled.button`
     width: 15%;
     height: 36px;
-    background-color: white;
+    background-color: black;
     border: 2px solid black;
     border-left: 1px solid black;
     border-top-right-radius: 5px;
@@ -139,7 +164,7 @@ const Submit = styled.button`
 
     span{
         font-size: 27px;
-        color: black;
+        color: white;
     }
 `;
 
@@ -157,9 +182,9 @@ function SelectTag() {
                         {id:11, coordi: "골프", value: "골프"}, {id:12, coordi: "홈웨어", value: "홈웨어"}, {id: 13, coordi: "선택안함", value: ""}
     ];
 
-    const detailList = [{id:1, detail: "봄", value: "봄"}, {id:2, detail: "여름", value: "여름"}, {id:3, detail: "가을", value: "가을"}, {id:4, detail: "겨울", value: "겨울"}, {id:5, detail: "바람", value: "바람"},
-                        {id:6, detail: "사이즈", value: "사이즈"}, {id: 7, detail: "가성비", value: "가성"}, {id: 8, detail: "오버", value: "오버"}, {id: 9, detail: "만족", value: "만족"}, {id: 10, detail: "디자인", value: "디자인"},
-                        {id: 11, detail: "재질", value: "재질"}, {id: 12, detail: "기장", value: "기장"}
+    const detailList = [{id:1, detail: "봄", value: "봄"}, {id:2, detail: "여름", value: "여름"}, {id:3, detail: "가을", value: "가을"}, {id:4, detail: "겨울", value: "겨울"}, 
+                        {id:5, detail: "사이즈", value: "사이즈"}, {id: 6, detail: "오버", value: "오버"}, {id: 7, detail: "와이드", value: "와이드"}, {id: 8, detail: "기장", value: "기장"}, {id: 9, detail: "디자인", value: "디자인"},
+                        {id: 10, detail: "재질", value: "재질"}, {id: 11, detail: "원단", value: "원단"}, {id: 12, detail: "가성비", value: "가성"}
     ];
 
     //체크된 요소들 담는 곳
@@ -217,18 +242,15 @@ function SelectTag() {
     // };
     
     //변화감지(체크여부), 필요한 값 받아오기
-    const onChangeFa = (checked, item) => {
-        if(checked) {
-            setFashion2([...fashion2, item]);
-            // && fashion2.has(item) else if 조건에 들어가
-        } else if (!checked && fashion2.includes(item)) {
-           console.log(setFashion2(fashion2.filter(el => el !== item)));
-        }
+    const [radiohandle, setRadiohandle] = useState([]);
+    const onChangeFa = (item) => {
+        setRadiohandle(item)
+        setFashion2(item)
     };
 
     const onChangeCo = (checked, item) => {
         if(checked) {
-            setCoordi2(coordi2.concat(item.coordi));
+            setCoordi2([...coordi2, item]);
 
         } else if (!checked && coordi2.includes(item)) {
            console.log(setCoordi2(coordi2.filter((el => el !== item))));
@@ -238,7 +260,7 @@ function SelectTag() {
 
     const onChangeDe = (checked, item) => {
         if(checked) {
-            setDetail2(detail2.concat(item.detail));
+            setDetail2([...detail2, item]);
 
         } else if (!checked && detail2.includes(item)) {
            console.log(setDetail2(detail2.filter((el => el   !== item))));
@@ -268,17 +290,17 @@ function SelectTag() {
                     </Box>
                     <TagBox>
                     {categorylist.map((item, index) =>
-                        <TagLabel key={item.id}>
+                        <TagLabel key={item.id} checked={fashion2.includes(item.fashion) ? true : false}>
                             <TagInput
-                                type="checkbox"
+                                type="radio"
                                 value={item.fashion} 
                                 // onClick={() => {toggleActive()}}
                                 onChange={(e) => {
-                                    onChangeFa(e.target.checked, e.target.value)
+                                    onChangeFa(e.target.value)
                                 }}
-                                checked = {fashion2.includes(item.fashion) ? true : false}
+                                checked={radiohandle === item.fashion}
                                 />
-                                    {item.fashion}
+                            <TagText>{item.fashion}</TagText>
                         </TagLabel>
                         )}
                     </TagBox>
@@ -289,21 +311,22 @@ function SelectTag() {
                     </Img>
                     <Subheading>코디</Subheading>
                      </Box>
-
+                    <TagBox>
                      {coordilist.map((item, index) =>
-                     <TagLabel key={item.id}>
+                     <TagLabel key={item.id} checked = {coordi2.includes(item.coordi) ? true : false}>
                             <TagInput
                                 type="checkbox"
                                 value={item.coordi} 
                                 // onClick={() => {toggleActive()}}
-                                onChange={e => {
-                                    onChangeFa(e.target.tagActive, e.target.value)
+                                onChange={(e) => {
+                                    onChangeCo(e.target.checked, e.target.value)
                                 }} 
-                                checked = {coordi2.includes(item.fashion) ? true : false}
+                                checked = {coordi2.includes(item.coordi) ? true : false}
                                 />
-                                    {item.coordi}
+                                    <TagText>{item.coordi}</TagText>
                         </TagLabel>
                     )}
+                    </TagBox>
                     <Box>
 
                     <Img> 
@@ -311,20 +334,22 @@ function SelectTag() {
                     </Img>
                     <Subheading>More</Subheading>
                     </Box>
+                    <TagBox>
                         {detailList.map((item, index) =>
-                        <TagLabel key={item.id}>
+                        <TagLabel key={item.id} checked = {detail2.includes(item.detail) ? true : false}>
                             <TagInput
                                 type="checkbox"
                                 value={item.detail} 
                                 // onClick={() => {toggleActive()}}
-                                onChange={e => {
-                                    onChangeFa(e.target.tagActive, e.target.value)
+                                onChange={(e) => {
+                                    onChangeDe(e.target.checked, e.target.value)
                                 }} 
-                                checked = {detail2.includes(item.fashion) ? true : false}
+                                checked = {detail2.includes(item.detail) ? true : false}
                                 />
-                                    {item.detail}
+                                    <TagText>{item.detail}</TagText>
                         </TagLabel>
                     )}
+                    </TagBox>
 
                     <FormBox onSubmit={onSubmit}>
                         <InputBox>

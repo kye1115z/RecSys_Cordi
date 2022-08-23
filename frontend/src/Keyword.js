@@ -41,7 +41,7 @@ const Box = styled.div`
   height: 55px;
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   float:left;
 `;
 

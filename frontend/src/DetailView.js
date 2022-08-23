@@ -204,7 +204,7 @@ function DetailView({onClose, product}) {
                         <Name>{product.name}</Name>
                         <MiniBox>
                             <StarRating value={product.rating}/>
-                            <Rating>{product.rating}</Rating>
+                            <Rating>{(product.rating*10).toFixed()/10}</Rating>
                         </MiniBox>
                         <Price>{product.price}</Price>
                         <Title>구매후기</Title>

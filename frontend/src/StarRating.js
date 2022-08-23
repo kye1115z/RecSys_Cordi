@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { createGlobalStyle } from 'styled-components';
 import { useEffect, useState } from 'react';
 import GlobalStyle from './GlobalStyle';
 
@@ -16,25 +15,10 @@ const StarRateWrap = styled.div`
 
 function StarRating({value}) {
 
-    // const { id } = useParams();
-
-    // const [product, setProduct] = useState(0);
-
-    // const getProduct = async () => {
-    //     const json = await (
-    //       await fetch(`http://localhost:8000/results/${id}`)
-    //     ).json();
-    //     console.log("자 이제 시작")
-    //     setProduct(json.rating.toFixed(1))
-    //     console.log("바꾸기 전", json.rating.toFixed(1))
-    //   };
-    // useEffect(() => {
-    // getProduct();
-    // }, []);
-    // console.log("바뀌었나?", product)
-
-    const AVR_RATE = value;
-    console.log("얏호", AVR_RATE);
+    const newvalue = value*10
+    const new2value = newvalue.toFixed()
+    const AVR_RATE = new2value/10;
+    console.log("StarRating: ", AVR_RATE);
     const STAR_IDX_ARR = ['first', 'second', 'third', 'fourth', 'last'];
     const [ratesResArr, setRatesResArr] = useState([0, 0, 0, 0, 0]);
     const calcStarRates = () => {

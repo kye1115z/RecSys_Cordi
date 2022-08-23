@@ -53,24 +53,52 @@ const Subheading = styled.div`
 
 const TagBox = styled.div`
     width: 100%;
-    height: 60px;
-    margin-bottom: 15px;
-    padding-left: 5px;
+    height: 130px;
+    margin-bottom: 20px; 
+    vertical-align: middle;
 `;
 
-const Tag = styled.button`
+const TagLabel = styled.div`
+    width: fit-content;
     float: left;
     margin-right: 8px;
-    margin-bottom: 8px;
-    border: 1px solid gray;
+    margin-bottom: 5px;
     background-color: white;
+    border: 2px solid ${props => props.checked ? "black" : "rgb(240, 240, 240)"};
     justify-content: center;
     border-radius: 5px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 7px;
+    padding-right: 7px;
+    display: flex;
+    align-items: center;
+
+    font-size: 15px;
+`;
+const Tag = styled.input`
+    width: 13px;
+    height: 13px;
+    appearance: none;
+    border-radius: 50%;
+    background-color: rgb(240, 240, 240);
+    margin: 0px;
+
+    &:checked {
+        background-color: transparent;
+
+        background-size: 100% 100%;
+        background-image: 
+        url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-color: black;
+    }
+`;
+
+const TagText = styled.div`
     font-size: 10px;
+    margin-left: 5px;
 `;
 
 const InputBox = styled.div`
@@ -82,7 +110,7 @@ const InputBox = styled.div`
   justify-content: center;
 `;
 const InputText = styled.input`
-  width: 50%;
+  width: 52%;
   height: 30px;
   border: 2px solid black;
   padding-left: 10px;
@@ -92,7 +120,7 @@ const InputText = styled.input`
 `;
 
 const InputTopn = styled.input`
-    width: 32%;
+    width: 34%;
     height: 30px;
     border: 2px solid black;
     padding-left: 10px;
@@ -113,7 +141,7 @@ const SubmitBox = styled.form`
 `;
 
 const Submit = styled.button`
-    width: 300px;
+    width: 100%;
     height: 40px;
     background-color: black;
     border: none;
@@ -189,10 +217,10 @@ function Search() {
     };
     
     //TAG 클릭 배열 삭제, 추가
-    const [tagActive, setTagActive] = useState(false);
-
-    const toggleActive = () =>  {
-        setTagActive((tagActive)=>!tagActive)
+    const [radiohandle, setRadiohandle] = useState("");
+    const onChangeFa = (item) => {
+        setRadiohandle(item)
+        setFashion2(item)
     };
 
     return (
@@ -207,14 +235,18 @@ function Search() {
                 </Box>
                 <TagBox>
                 {categorylist.map((item, index) =>
-                    <Tag onClick={()=>
-                        {toggleActive()
-                        !tagActive ? (setFashion2(fashion2.concat(item.fashion)))
-                        : (console.log(setFashion2(fashion2.filter(categorylist => categorylist.fashion !== fashion2.fashion))))
+                    <TagLabel key={item.id} checked={fashion2.includes(item.fashion) ? true : false}>
+                    <Tag
+                        type="radio"
+                        value={item.fashion} 
+                        // onClick={() => {toggleActive()}}
+                        onChange={(e) => {
+                            onChangeFa(e.target.value)
                         }}
-                        key={item.id} >
-                            {item.fashion}
-                    </Tag>
+                        checked={radiohandle === item.fashion}
+                        />
+                    <TagText>{item.fashion}</TagText>
+                </TagLabel>
                 )}
                 </TagBox>
                 <FormBox onSubmit={onSubmit}>
